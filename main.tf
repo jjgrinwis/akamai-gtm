@@ -4,7 +4,8 @@ resource "akamai_gtm_property" "ipv4" {
   domain                 = var.gtm_domain_name
   name                   = "${each.key}-ipv4"
   type                   = "weighted-round-robin"
-  handout_limit          = 1
+  handout_limit          = var.handout_limit
+  dynamic_ttl            = var.dynamic_ttl
   handout_mode           = "normal"
   ipv6                   = false
   score_aggregation_type = "worst"
@@ -29,7 +30,8 @@ resource "akamai_gtm_property" "ipv6" {
   domain                 = var.gtm_domain_name
   name                   = "${each.key}-ipv6"
   type                   = "weighted-round-robin"
-  handout_limit          = 1
+  handout_limit          = var.handout_limit
+  dynamic_ttl            = var.dynamic_ttl
   handout_mode           = "normal"
   ipv6                   = true
   score_aggregation_type = "worst"

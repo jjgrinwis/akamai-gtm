@@ -92,3 +92,20 @@ variable "IPv6_default_dc" {
   type        = number
   default     = 5402
 }
+
+variable "handout_limit" {
+  description = "The maximum number of handout answers returned in the response per DC."
+  type        = number
+  default     = 1
+}
+
+variable "dynamic_ttl" {
+  description = "The TTL value for the GTM property"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.dynamic_ttl >= 30 && var.dynamic_ttl <= 172800
+    error_message = "The dynamic_ttl must be between 30 and 172800 seconds."
+  }
+}
