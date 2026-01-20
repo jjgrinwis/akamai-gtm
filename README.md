@@ -202,7 +202,7 @@ terraform apply
 
 | File               | Purpose                                                 |
 | ------------------ | ------------------------------------------------------- |
-| `main.tf`        | Defines GTM pool resources with dynamic traffic targets |
+| `main.tf`          | Defines GTM pool resources with dynamic traffic targets |
 | `variables.tf`     | Variable definitions and validation rules               |
 | `terraform.tfvars` | Your configuration values (customize this)              |
 | `outputs.tf`       | Output definitions (currently commented out)            |
@@ -280,7 +280,7 @@ IPv4_default_dc = 5401
 IPv6_default_dc = 5402
 ```
 
-These are special datacenters that route traffic between the IPv4 and IPv6 specific pools. Override if your GTM domain uses different IDs.
+These are special datacenters that route traffic between the IPv4 and IPv6 specific pools.
 
 ## Examples
 
