@@ -102,15 +102,6 @@ curl -X GET "https://<edgehost>/config-gtm/v1/domains/{domain-name}/datacenters"
 # }
 ```
 
-#### Option 3: Using Terraform Import
-
-If datacenters exist but aren't managed by Terraform, you can import them:
-
-```bash
-# Import datacenter resource
-terraform import akamai_gtm_datacenter.amsterdam {domain-name}:{datacenter-id}
-```
-
 ## Architecture
 
 This configuration creates a three-level GTM hierarchy:
@@ -151,6 +142,8 @@ access_token = {your-access-token}
 client_token = {your-client-token}
 ```
 
+Update providers.tf with the correct section if required.
+
 ### 2. Update Configuration
 
 Edit `terraform.tfvars` with your settings:
@@ -179,16 +172,7 @@ pool_servers = {
 
 ### 3. Verify Datacenter IDs (CRITICAL)
 
-Before applying, verify that all datacenters exist in your GTM domain:
-
-```bash
-# Option A: Check via Akamai API
-akamai gtm list-datacenters --domain=cdn03.example.com
-
-# Option B: Check in terraform.tfvars and variables.tf
-# - Ensure ams=1, rtm=2, utr=3 exist
-# - Ensure IPv4 DC 5401 and IPv6 DC 5402 exist
-```
+Before applying, verify that all datacenters exist in your GTM domain, including the default DCs.
 
 ### 4. Initialize and Validate
 
