@@ -36,7 +36,7 @@ This Terraform configuration manages GTM properties with dynamic traffic target 
 
 2. **Terraform**: Version 1.0 or higher
 
-3. **Akamai Terraform Provider**: Version 6.0 or higher
+3. **Akamai Terraform Provider**: Version 9.0 or higher
    - Requires valid Akamai API credentials
 
 ### Datacenters - MUST BE PRE-CREATED
@@ -53,12 +53,7 @@ By default, this configuration expects three datacenters to exist in your GTM do
 | `rtm`           | 2             | Rotterdam datacenter |
 | `utr`           | 3             | Utrecht datacenter   |
 
-To verify these datacenters exist in your GTM domain:
-
-```bash
-# Using Akamai CLI or API
-akamai gtm list-datacenters --domain=cdn03.example.com
-```
+Data Center ID's can be found in the Akamai Control Center.
 
 #### Special Default Datacenters
 
@@ -86,8 +81,8 @@ These datacenters handle DNS request routing between the IPv4 and IPv6 specific 
 
 ```bash
 # Get all datacenters in your domain
-curl -X GET "https://akzz-configgtm-api.luna.akamaiapis.net/config-gtm/v1/domains/{domain-name}/datacenters" \
-  -H "Authorization: Bearer {access-token}"
+curl -X GET "https://<edgehost>/config-gtm/v1/domains/{domain-name}/datacenters" \
+  -H "EG1-HMAC-SHA256 client_token=akab-bic7......"
 
 # Example response:
 # {
@@ -149,15 +144,11 @@ GTM Domain: cdn03.example.com
 Set up Akamai API credentials (typically done via `.edgerc` file):
 
 ```bash
-mkdir -p ~/.akamai-cli
-cat > ~/.akamai-cli/.edgerc << 'EOF'
 [default]
 client_secret = {your-client-secret}
 host = {your-api-host}
 access_token = {your-access-token}
 client_token = {your-client-token}
-EOF
-chmod 600 ~/.akamai-cli/.edgerc
 ```
 
 ### 2. Update Configuration
@@ -227,7 +218,7 @@ terraform apply
 
 | File               | Purpose                                                 |
 | ------------------ | ------------------------------------------------------- |
-| `pool-2.tf`        | Defines GTM pool resources with dynamic traffic targets |
+| `main.tf`        | Defines GTM pool resources with dynamic traffic targets |
 | `variables.tf`     | Variable definitions and validation rules               |
 | `terraform.tfvars` | Your configuration values (customize this)              |
 | `outputs.tf`       | Output definitions (currently commented out)            |
